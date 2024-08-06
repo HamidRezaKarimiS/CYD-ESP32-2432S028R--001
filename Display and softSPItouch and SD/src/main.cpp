@@ -10,7 +10,7 @@ TFT_eSPI tft = TFT_eSPI();
 SoftSPI touchscreenSPI(XPT2046_MOSI, XPT2046_MISO, XPT2046_CLK);
 XPT2046_TouchscreenSOFTSPI touchscreen(XPT2046_CS, XPT2046_IRQ);
 
-SPIClass SDSPI = SPIClass(VSPI); // i command this
+SPIClass SDSPI = SPIClass(VSPI);
 #define SD_CS 5                  // Adjust to your SD card CS pin
 
 // Touchscreen coordinates: (x, y) and pressure (z)
@@ -64,8 +64,6 @@ void setup()
   Serial.println("initialisation done.");
 
   // Start the SPI for the touchscreen and init the touchscreen
-  //touchscreenSPI.begin(XPT2046_CLK, XPT2046_MISO, XPT2046_MOSI, XPT2046_CS);
-  //touchscreen.begin(touchscreenSPI);
   touchscreen.begin(&touchscreenSPI); // i add this
   // Set the Touchscreen rotation in landscape mode
   // Note: in some displays, the touchscreen might be upside down, so you might need to set the rotation to 3: touchscreen.setRotation(3);
@@ -77,7 +75,6 @@ void setup()
   tft.setRotation(1);
 
   tft.setTextColor(TFT_BLACK, TFT_WHITE);
-  //tft.loadFont("KunstlerScript-40");
   tft.fillScreen(TFT_WHITE);
   tft.setCursor(20, 20);
   tft.println("Embedded Exp");
@@ -90,7 +87,6 @@ void setup()
   // Clear the screen before writing to it
   tft.fillScreen(TFT_WHITE);
   tft.setTextColor(TFT_BLACK, TFT_WHITE);
-  //tft.loadFont("Times-30");
   tft.drawCentreString("Hello, world!", centerX, 30, FONT_SIZE);
   tft.drawCentreString("Touch screen to test", centerX, centerY, FONT_SIZE);
   delay(2000);
